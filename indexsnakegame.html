@@ -91,6 +91,7 @@ function loop() {
     }
     //simple bubble sort that keeps track of which squares collided into each other if at all. 
     for (var i = index + 1; i < snake.cells.length; i++) {
+      //the snake occupies same space as another body part reset game because you died 
       if (cell.x === snake.cells[i].x && cell.y === snake.cells[i].y) {
         snake.x = 160;
         snake.y = 160;
