@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <title></title>
   <style>
   html, body {
@@ -42,6 +42,13 @@ var food = {
   x: 320,
   y: 320
 };
+// Returns whether or not the given value is between the min and max values
+function bound(val,min,max){
+  if((min <= val) && (val <= max)){
+    return true;
+  }
+  return false;
+}
 // this function is where you get the random numbers for the food in order for it appear in the map and for the snake to eat. 
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -84,7 +91,12 @@ function loop() {
     
     context.fillRect(cell.x, cell.y, grid-1, grid-1);  
 
-    if (cell.x === food.x && cell.y === food.y) {
+    // The range of acceptable values the snake must pass through
+    // 4 is good as the snake operates at 2 and 8
+    var range = 4;
+
+    // Bound the snakes position and see if it can eat the food
+    if (bound(cell.x, food.x - range, food.x + range) && bound(cell.y, food.y - range, food.y + range)) {
       snake.maxCells++;
       food.x = getRandomInt(0, 25) * grid;
       food.y = getRandomInt(0, 25) * grid;
